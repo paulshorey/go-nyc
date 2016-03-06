@@ -173,7 +173,7 @@ CASPER.pro.respond = function(req, res) {
 				// FAIL
 				CASPER.echo('Failed');
 				res.statusCode = 200;
-				res.write(JSON.stringify([{id:'0',title:'Site not found'}]));
+				res.write(JSON.stringify([{id:CASPER.site.id,title:'Site not found'}]));
 				res.close();
 		}, 
 		3000 );
