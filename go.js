@@ -154,13 +154,34 @@ CASPER.pro.respond = function(req, res) {
 		
 		CASPER.waitFor(function() {
 			CASPER.data = {};
-			return CASPER.data = CASPER.evaluate(function(site) {
-					if (window.document.title) {
-						return [{id:site.id,title:window.document.title}];
-					} else {
-						return false;
-					}
-			},CASPER.site);
+			return CASPER.data = CASPER.evaluate(function(site, Q) {
+						console.log('typeof Q', typeof Q);
+						
+						
+						var deferred = Q.defer();
+						window.setTimeout(function(){
+							deferred.resolve([{id:site.id,title:window.document.title}]);
+						},500);
+						//deferred.promise;
+						
+						
+						//deferred.promise = uu.evaluate();
+						deferred.promise.then(function(obj){
+							console.log('hello world alsdkfj');
+							return obj.data;
+						})
+						.catch(function(obj){
+							console.log('promise failed');
+							return obj.data;
+						})
+						.fail(function(obj){
+							console.log('promise failed');
+							return obj.data;
+						});
+						
+						
+						
+			}, CASPER.site, Q);
 			
 		}, function(data) {
 				// SUCCESS

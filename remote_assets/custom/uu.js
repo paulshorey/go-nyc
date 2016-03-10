@@ -334,14 +334,21 @@ pp.doOnce = function(){
 	}
 	
 };
-pp.doOnce();
-
+//pp.doOnce();
 pp.doAlways = function(){
 	window.document.body.scrollTop = Math.min( window.document.body.scrollTop+100,  $(document).height()-$(window).height() ) ;
 	console.log('scrolled: '+window.document.body.scrollTop);
 };
 
 
+
+uu.evaluate = function() {
+	var deferred = Q.defer();
+	window.setTimeout(function(){
+		deferred.resolve([{id:site.id,title:window.document.title}]);
+	},500);
+	return deferred.promise;
+};
 
 
 
