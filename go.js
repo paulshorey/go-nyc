@@ -1,6 +1,7 @@
 //"use strict";
 //https://github.com/benfoxall/phantomjs-webserver-example/blob/master/server.js
 var DT = new Date();
+var Q = require('q');
 var FS = require('fs');
 var FUN = require('./node_custom/fun.js');
 
@@ -14,8 +15,8 @@ var APP = {
 var SITES = [];
 
 var CASPER = require('casper').create({
-	waitTimeout: 1000,
-	stepTimeout: 3500,
+	waitTimeout: 10000,
+	stepTimeout: 1000,
 	retryTimeout: 100,
 	verbose: true,
 	exitOnError: false,
@@ -51,13 +52,6 @@ var CASPER = require('casper').create({
 	]
 });
 // events
-CASPER.on('run.complete', function() {
-	//CASPER.console.warn('Test completed');
-	//CASPER.exit();
-});
-CASPER.on('remote.message', function(msg) {
-	CASPER.console.log('		' + msg, 'error');
-});
 CASPER.on("page.error", function(error, notes) {
 	CASPER.console.error('		Error: ' + JSON.stringify(error, null, " ") + '\n' + JSON.stringify(notes[0], null, " "), 'error');
 });
@@ -136,6 +130,18 @@ CASPER.console.error = function(message) {
 	CASPER.console.write(message, 'error');
 }
 
+CASPER.on('run.complete', function() {
+	//CASPER.console.warn('Test completed');
+	//CASPER.exit();
+});
+CASPER.on('remote.message', function(msg) {
+	CASPER.console.log('		' + msg, 'error');
+});
+// CASPER.on('remote.callback', function(requestData, request) {
+// 	request.abort(requestData);
+// 	return false;
+// });
+
 CASPER.site = {};
 CASPER.rrs = [];
 CASPER.pro = {};
@@ -151,53 +157,33 @@ CASPER.pro.respond = function(req, res) {
 	// RUN
 	CASPER.echo('= '+CASPER.site.url);
 	CASPER.thenOpen(CASPER.site.url,function(){
-		
+
 		CASPER.waitFor(function() {
-			CASPER.data = {};
-			return CASPER.data = CASPER.evaluate(function(site, Q) {
-						console.log('typeof Q', typeof Q);
-						
-						
-						var deferred = Q.defer();
-						window.setTimeout(function(){
-							deferred.resolve([{id:site.id,title:window.document.title}]);
-						},500);
-						//deferred.promise;
-						
-						
-						//deferred.promise = uu.evaluate();
-						deferred.promise.then(function(obj){
-							console.log('hello world alsdkfj');
-							return obj.data;
-						})
-						.catch(function(obj){
-							console.log('promise failed');
-							return obj.data;
-						})
-						.fail(function(obj){
-							console.log('promise failed');
-							return obj.data;
-						});
-						
-						
-						
-			}, CASPER.site, Q);
-			
+			return CASPER.evaluate(function(site) {
+				var done = $('#casperJsDone').get(0) ? $('#casperJsDone').get(0).innerText : '';
+				console.log('watching...', done);
+				if (done) { 
+					return true;
+				} else {
+					return false;
+				}
+			}, CASPER.site);
 		}, function(data) {
 				// SUCCESS
-				CASPER.echo('SUCCESS');
+				CASPER.echo('OK');
 				res.statusCode = 200;
-				res.write(JSON.stringify(CASPER.data));
+				res.write(JSON.stringify([{id:0,title:'OK'}]));
 				res.close();
 			
 		}, function(data) {
 				// FAIL
-				CASPER.echo('Failed');
+				CASPER.echo('no');
 				res.statusCode = 200;
-				res.write(JSON.stringify([{id:CASPER.site.id,title:'Site not found'}]));
+				res.write(JSON.stringify([{id:0,title:'no :('}]));
 				res.close();
 		}, 
-		3000 );
+		11000 );
+
 			
 	});
 	
@@ -218,7 +204,7 @@ CASPER.pro.respond = function(req, res) {
 	});
 
 };
-
+ 
 
 
 
