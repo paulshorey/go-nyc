@@ -7,5 +7,6 @@
 
 # node go.js
 
+cd /www/go-nyc
 killall node
 bash _boot/app.sh
