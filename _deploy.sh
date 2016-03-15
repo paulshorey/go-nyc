@@ -7,4 +7,5 @@
 
 # node go.js
 
+killall node
 reboot
