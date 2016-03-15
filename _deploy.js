@@ -5,10 +5,10 @@ var fs = require('fs'),
 
 app.set('port', 9999);
 
-app.all('/_hook/deploy', function(req, res) {
+app.all('/_deploy', function(req, res) {
 
 	var spawn = require('child_process').spawn,
-		deploy = spawn('sh', ['/_hook/deploy.sh']);
+		deploy = spawn('sh', ['/_deploy.sh']);
 
 	deploy.stdout.on('data', function(data) {
 		console.log('' + data);

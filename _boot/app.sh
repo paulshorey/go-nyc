@@ -1,6 +1,6 @@
 cd /www/go-nyc
 
-node _hook/deploy.js
+node _deploy.js
 
 i=0;
 while true; do
