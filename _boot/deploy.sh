@@ -1,3 +1,4 @@
-sleep 20 # allow other bash scripts to git-pull
+sleep 20
+
 cd /www/go-nyc
 node _deploy.js
