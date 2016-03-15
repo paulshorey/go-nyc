@@ -225,8 +225,6 @@ var service = server.listen(port, function(request, response) {
 		}
 		
 	} else {
-		CASPER.echo('index');
-		
 		// serve index
 		response.statusCode = 200;
 		response.setHeader('Content-Type', 'text/html; charset=utf-8');
