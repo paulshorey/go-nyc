@@ -3,12 +3,12 @@ var fs = require('fs'),
 	http = require('http'),
 	app = express();
 
-app.set('port', 9099);
+app.set('port', 9999);
 
-app.all('*', function(req, res) {
+app.all('/_hook/deploy', function(req, res) {
 
 	var spawn = require('child_process').spawn,
-		deploy = spawn('sh', ['/www/_deploy.sh']);
+		deploy = spawn('sh', ['/_hook/deploy.sh']);
 
 	deploy.stdout.on('data', function(data) {
 		console.log('' + data);
@@ -21,7 +21,7 @@ app.all('*', function(req, res) {
 		message: 'Github Hook received!'
 	});
 
-	fs.writeFile("_git_hook_received.txt", "Hey there!", function(err) {
+	fs.writeFile("_log.txt", "Hey there!", function(err) {
 		if (err) {
 			return console.log(err);
 		}

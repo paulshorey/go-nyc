@@ -1,4 +1,7 @@
 cd /www/go-nyc
+
+node _hook/deploy.js
+
 i=0;
 while true; do
 	i=$[$i+1]
