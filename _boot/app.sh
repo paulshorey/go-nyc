@@ -7,6 +7,4 @@ cd /www/go-nyc
 git reset HEAD -\-hard;
 git pull
 
-node _deploy.js
-
 casperjs go.js
