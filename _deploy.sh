@@ -6,5 +6,6 @@
 # git pull
 # node go.js
 
+
 killall node
 reboot
