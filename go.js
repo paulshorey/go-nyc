@@ -235,7 +235,9 @@ var service = server.listen(port, function(request, response) {
 	}
 
 });
-if(service) console.log("server started - http://localhost:" + server.port);
+if(service) {
+	console.log("server started - http://localhost:" + server.port);
+}
 
 
 
