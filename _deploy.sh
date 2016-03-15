@@ -8,4 +8,4 @@
 # node go.js
 
 killall node
-reboot
+bash _boot/app.sh
