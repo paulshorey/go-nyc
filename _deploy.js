@@ -8,7 +8,7 @@ app.set('port', 9999);
 app.all('/_deploy', function(req, res) {
 
 	var spawn = require('child_process').spawn,
-		deploy = spawn('sh', ['/_deploy.sh']);
+		deploy = spawn('sh', ['_deploy.sh']);
 
 	deploy.stdout.on('data', function(data) {
 		console.log('' + data);
@@ -29,5 +29,6 @@ app.all('/_deploy', function(req, res) {
 });
 
 http.createServer(app).listen(app.get('port'), function() {
+	
 	console.log('Express server listening on port ' + app.get('port'));
 });
