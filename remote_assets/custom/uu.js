@@ -357,5 +357,5 @@ uu.evaluate = function() {
 
 console.log('uu.js');
 window.setTimeout(function(){
-	window.document.write( '<div id="casperJsDone">{"JSON":"TEST"}</div>' );
+	window.document.write( '<div id="casperJsDone">{"test":"TEST"}</div>' );
 },1000);

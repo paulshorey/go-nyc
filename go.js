@@ -162,7 +162,7 @@ CASPER.pro.respond = function(req, res) {
 	CASPER.thenOpen(CASPER.site.url,function(){
 
 		CASPER.waitFor(function() {
-			return CASPER.evaluate(function(site) {
+			return CASPER.site.data = CASPER.evaluate(function(site) {
 				var done = $('#casperJsDone').get(0) ? $('#casperJsDone').get(0).innerText : '';
 				console.log('watching...', done);
 				try { 
@@ -178,7 +178,7 @@ CASPER.pro.respond = function(req, res) {
 				// SUCCESS
 				CASPER.echo('OK');
 				res.statusCode = 200;
-				res.write(JSON.stringify([{id:CASPER.iteration,title:'OK'}]));
+				res.write(JSON.stringify([{id:CASPER.iteration,title:CASPER.site.data.test}]));
 				res.close();
 			
 		}, function(data) {
