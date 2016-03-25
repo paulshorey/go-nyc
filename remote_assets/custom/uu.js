@@ -340,6 +340,7 @@ pp.doAlways = function(){
 	console.log('scrolled: '+window.document.body.scrollTop);
 };
 
+//$('body').get(0).innerText.length
 
 
 uu.evaluate = function() {
@@ -356,5 +357,5 @@ uu.evaluate = function() {
 
 console.log('uu.js');
 window.setTimeout(function(){
-	$( "body" ).append( '<p id="casperJsDone">done</p>' );
+	window.document.write( '<div id="casperJsDone">{"JSON":"TEST"}</div>' );
 },1000);

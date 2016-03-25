@@ -47,8 +47,11 @@ var CASPER = require('casper').create({
 		//CASPER.log( 'onResourceReceived\': "' + ( CASPER.site ? CASPER.site.link : '(site not defined)' ) + '" : ' + timeout + 'ms', "info" );
 	},
 	clientScripts: [
-		APP.path + "/remote_assets/vendor/all.js",
-		APP.path + "/remote_assets/custom/uu.js"
+		APP.path + "/remote_assets/vendor/jquery.js",
+		APP.path + "/remote_assets/vendor/underscore.js",
+		APP.path + "/remote_assets/vendor/sugar.js",
+		APP.path + "/remote_assets/custom/uu.js",
+		APP.path + "/remote_assets/custom/site.js"
 	]
 });
 // events
@@ -68,7 +71,7 @@ CASPER.on('complete.error', function(err) {
 CASPER.console = {};
 CASPER.console.html = '';
 CASPER.console.date = '';
-CASPER.iteration = '?';
+CASPER.iteration = '0';
 if (CASPER.cli.has("iteration")) {
 	CASPER.iteration = CASPER.cli.get("iteration");
 }
@@ -162,9 +165,12 @@ CASPER.pro.respond = function(req, res) {
 			return CASPER.evaluate(function(site) {
 				var done = $('#casperJsDone').get(0) ? $('#casperJsDone').get(0).innerText : '';
 				console.log('watching...', done);
-				if (done) { 
-					return true;
-				} else {
+				try { 
+					var data = JSON.parse(done);
+					console.log('DONE');
+					console.log(data);
+					return data;
+				} catch(e) {
 					return false;
 				}
 			}, CASPER.site);
@@ -172,14 +178,14 @@ CASPER.pro.respond = function(req, res) {
 				// SUCCESS
 				CASPER.echo('OK');
 				res.statusCode = 200;
-				res.write(JSON.stringify([{id:0,title:'OK'}]));
+				res.write(JSON.stringify([{id:CASPER.iteration,title:'OK'}]));
 				res.close();
 			
 		}, function(data) {
 				// FAIL
 				CASPER.echo('no');
 				res.statusCode = 200;
-				res.write(JSON.stringify([{id:0,title:'no :('}]));
+				res.write(JSON.stringify([{id:CASPER.iteration,title:'no :('}]));
 				res.close();
 		}, 
 		11000 );
