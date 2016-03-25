@@ -355,7 +355,7 @@ uu.evaluate = function() {
 
 
 
-console.log('uu.js');
+console.log('uu.js = ' +window.location.href);
 window.setTimeout(function(){
 	window.document.write( '<div id="casperJsDone">{"test":"TEST"}</div>' );
 },1000);

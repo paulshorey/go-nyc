@@ -34,14 +34,14 @@ var CASPER = require('casper').create({
 		"ignoreSslErrors": true
 	},
 	onWaitTimeout: function(timeout, step) {
-		CASPER.log('onWaitTimeout\': "' + (CASPER.site ? CASPER.site.link : '(site not defined)') + '" : ' + timeout + 'ms', "error");
-		CASPER.clear();
-		CASPER.page.stop();
+		// CASPER.log('onWaitTimeout\': "' + (CASPER.site ? CASPER.site.link : '(site not defined)') + '" : ' + timeout + 'ms', "error");
+		// CASPER.clear();
+		// CASPER.page.stop();
 	},
 	onStepTimeout: function(timeout, step) {
-		CASPER.log('onStepTimeout\': "' + (CASPER.site ? CASPER.site.link : '(site not defined)') + '" : ' + timeout + 'ms', "error");
-		CASPER.clear();
-		CASPER.page.stop();
+		// CASPER.log('onStepTimeout\': "' + (CASPER.site ? CASPER.site.link : '(site not defined)') + '" : ' + timeout + 'ms', "error");
+		// CASPER.clear();
+		// CASPER.page.stop();
 	},
 	onResourceReceived: function(timeout, step) {
 		//CASPER.log( 'onResourceReceived\': "' + ( CASPER.site ? CASPER.site.link : '(site not defined)' ) + '" : ' + timeout + 'ms', "info" );
@@ -231,8 +231,6 @@ var service = server.listen(port, function(request, response) {
 		}
 		
 	} else {
-		CASPER.echo('index');
-		
 		// serve index
 		response.statusCode = 200;
 		response.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -241,7 +239,9 @@ var service = server.listen(port, function(request, response) {
 	}
 
 });
-if(service) console.log("server started - http://localhost:" + server.port);
+if(service) {
+	console.log("server started - http://localhost:" + server.port);
+}
 
 
 
