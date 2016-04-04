@@ -7,14 +7,14 @@ app.set('port', 9999);
 
 app.all('/_deploy', function(req, res) {
 
-	// apply
-	var spawn = require('child_process').spawn,
-		deploy = spawn('sh', ['_hook/deploy.sh']);
-
 	// done
 	res.json(200, {
 		message: 'Github Hook received!'
 	});
+
+	// apply
+	var spawn = require('child_process').spawn,
+		deploy = spawn('sh', ['_hook/deploy.sh']);
 
 });
 
