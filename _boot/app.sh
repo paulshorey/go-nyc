@@ -6,5 +6,10 @@ cd /www/go-nyc
 git reset HEAD -\-hard;
 git pull
 
-echo casperjs go.js starting...
-casperjs go.js
+i=0;
+while true; do
+	i=$[$i+1]
+	echo casperjs go.js \#$i starting...
+	casperjs go.js --iteration=$i
+	sleep 60
+done
