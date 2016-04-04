@@ -234,7 +234,7 @@ var service = server.listen(port, function(request, response) {
 		// serve index
 		response.statusCode = 200;
 		response.setHeader('Content-Type', 'text/html; charset=utf-8');
-		response.write(FS.read('public/index.html'));
+		response.write(FS.read('index.html'));
 		response.close();
 	}
 
