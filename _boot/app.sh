@@ -6,5 +6,5 @@ cd /www/go-nyc
 git reset HEAD -\-hard;
 git pull
 
-echo casperjs casper.js starting...
-casperjs casper.js
+echo casperjs go.js starting...
+casperjs go.js
