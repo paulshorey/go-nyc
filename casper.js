@@ -214,7 +214,6 @@ CASPER.pro.respond = function(req, res) {
 
 
 
-
 // SERVE
 var server = require('webserver').create(),
 		system = require('system'),
