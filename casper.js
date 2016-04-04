@@ -218,7 +218,7 @@ CASPER.pro.respond = function(req, res) {
 // SERVE
 var server = require('webserver').create(),
 		system = require('system'),
-		port  =  4080;
+		port  =  2080;
 var service = server.listen(port, function(request, response) {
 	if (request.method == 'POST' && request.post.url){		
 		// next
@@ -234,13 +234,13 @@ var service = server.listen(port, function(request, response) {
 		// serve index
 		response.statusCode = 200;
 		response.setHeader('Content-Type', 'text/html; charset=utf-8');
-		response.write(FS.read('index.html'));
+		response.write(FS.read('public/index.html'));
 		response.close();
 	}
 
 });
 if(service) {
-	console.log("server started - http://localhost:" + server.port);
+	console.log("CasperJS started - http://localhost:" + server.port);
 }
 
 

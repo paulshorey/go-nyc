@@ -1,9 +1,8 @@
 node_modules
-node_modules/*
+node_custom
 .idea
 npm-debug
 .log
 err*
 out
-public
-public/*
+public/console
